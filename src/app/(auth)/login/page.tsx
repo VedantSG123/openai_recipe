@@ -49,7 +49,7 @@ const LoginPage = () => {
         className="w-full sm:justify-center sm:w-[400px] space-y-6 flex flex-col"
       >
         <Link href="/" className="w-full flex justify-left items-center">
-          <span className="text-4xl dark:text-white">Open AI Chat</span>
+          <span className="text-4xl dark:text-white">Open AI Recipe API</span>
         </Link>
         <FormField
           disabled={isLoading}

@@ -39,7 +39,7 @@ const SupabaseUserProvider: React.FC<SupabaseUserProviderProps> = ({
       }
     }
     getUser()
-  }, [supabase])
+  }, [])
   return (
     <SupabaseUserContext.Provider value={{ user }}>
       {children}

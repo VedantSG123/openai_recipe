@@ -2,7 +2,7 @@
 import React, { useState } from "react"
 import { twMerge } from "tailwind-merge"
 import { Input } from "../ui/input"
-import { FileSpreadsheetIcon, Plus } from "lucide-react"
+import { Plus } from "lucide-react"
 
 type ListInputProps = {
   getValue: (val: string) => void

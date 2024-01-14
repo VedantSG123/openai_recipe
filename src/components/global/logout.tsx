@@ -12,6 +12,7 @@ const Logout = () => {
   const supabase = createClientComponentClient()
   const logout = async () => {
     await supabase.auth.signOut()
+    router.push("/api/auth/logout")
     router.replace("/")
     dispatch({ type: "SET_CHATS", payload: [] })
   }

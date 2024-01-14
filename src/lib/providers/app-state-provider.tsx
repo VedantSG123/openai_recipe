@@ -1,7 +1,6 @@
 "use client"
 
 import { createContext, Dispatch, useReducer, useContext } from "react"
-import { usePathname } from "next/navigation"
 import { Chat } from "../supabase/supabase.types"
 
 type appChats = Chat[] | []
@@ -34,10 +33,7 @@ const appReducer = (
     case "SET_CHATS":
       return {
         ...state,
-        chats: action.payload.sort(
-          (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-        ),
+        chats: action.payload,
       }
     case "ADD_CHAT":
       return {
