@@ -34,12 +34,18 @@ const appReducer = (
     case "SET_CHATS":
       return {
         ...state,
-        chats: action.payload,
+        chats: action.payload.sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        ),
       }
     case "ADD_CHAT":
       return {
         ...state,
-        chats: [...state.chats, action.payload],
+        chats: [...state.chats, action.payload].sort(
+          (a, b) =>
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        ),
       }
     case "UPDATE_CHAT":
       return {

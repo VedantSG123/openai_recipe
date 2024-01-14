@@ -10,6 +10,6 @@ export const chats = pgTable("chats", {
     .notNull(),
   chatOwner: uuid("chat_owner").notNull(),
   responseType: text("response_type"),
-  ingredients: text("indredients"),
+  ingredients: text("ingredients"),
   response: text("response"),
 })

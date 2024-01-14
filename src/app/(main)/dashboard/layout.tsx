@@ -1,3 +1,4 @@
+import MobileSidebar from "@/components/sidebar/mobile-sidebar"
 import Sidebar from "@/components/sidebar/sidebar"
 type LayoutPropos = {
   children: React.ReactNode
@@ -6,18 +7,17 @@ type LayoutPropos = {
 
 const Layout: React.FC<LayoutPropos> = ({ children, params }) => {
   return (
-    <main
-      className="flex
-      h-screen
-      w-screen
-      overflow-hidden
-      "
-    >
-      <Sidebar params={params} />
+    <main className="sm:flex block h-screen w-screen overflow-hidden">
+      <div className="hidden sm:block">
+        <Sidebar />
+      </div>
+
+      <MobileSidebar />
       <div
         className="dark:border-neutrals-8/70
         border-l-[1px]
         w-full
+        h-full
         relative
         overflow-y-auto
         flex-1

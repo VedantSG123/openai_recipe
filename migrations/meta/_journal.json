@@ -15,6 +15,13 @@
       "when": 1705210467700,
       "tag": "0001_familiar_venus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1705221883668,
+      "tag": "0002_cultured_jack_power",
+      "breakpoints": true
     }
   ]
 }

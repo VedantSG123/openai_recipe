@@ -25,8 +25,20 @@ const ListInput: React.FC<ListInputProps> = ({
 
   const handleClick = () => {
     if (disabled === true) return
-    getValue(value)
-    setValue("")
+    if (value !== "") {
+      getValue(value)
+      setValue("")
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      if (disabled === true) return
+      if (value !== "") {
+        getValue(value)
+        setValue("")
+      }
+    }
   }
 
   return (
@@ -34,6 +46,7 @@ const ListInput: React.FC<ListInputProps> = ({
       <Input
         type="text"
         onChange={onTextChange}
+        onKeyDown={handleKeyPress}
         value={value}
         disabled={disabled}
         placeholder={placeholder}

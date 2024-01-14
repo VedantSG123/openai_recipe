@@ -14,7 +14,7 @@ const DashboardPage = async () => {
   }
 
   return (
-    <div className="max-w-[800px] px-4 py-6 mx-auto">
+    <div className="max-w-[800px] px-2 sm:px-4 py-6 mx-auto">
       <NewChat />
     </div>
   )

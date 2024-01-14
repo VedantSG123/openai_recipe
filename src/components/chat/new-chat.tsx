@@ -19,7 +19,7 @@ const NewChat = () => {
   const [ingredients, setIngredients] = useState<string[] | []>([])
   const [editing, setEditing] = useState(true)
   const [loading, setLoading] = useState(false)
-  const [response, setResponse] = useState("New recipe from chat gpt 3.5")
+  const [response, setResponse] = useState("")
   const [responseType, setResponseType] = useState("Normal")
 
   const getValue = (val: string) => {
@@ -49,18 +49,21 @@ const NewChat = () => {
     if (ingredients.length === 0) return
     setEditing(false)
     setLoading(true)
-    const ingredientListFormat = ingredients.map(
-      (item, index) => `${1 + index}. ${item}`
-    )
+    // const ingredientListFormat = ingredients.map(
+    //   (item, index) => `${1 + index}. ${item}`
+    // )
 
-    const ingredientListString = ingredientListFormat.join("\n")
+    const ingredientListString = ingredients.join(", ")
     try {
       const response = await fetch("/api/recipes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: ingredientListString }),
+        body: JSON.stringify({
+          prompt: ingredientListString,
+          precision: responseType,
+        }),
       })
 
       if (!response.ok) {
@@ -68,7 +71,7 @@ const NewChat = () => {
       }
 
       const responseData = await response.json()
-      console.log(responseData)
+      setResponse(responseData.text)
     } catch (err) {
       console.error(err)
       toast({
@@ -88,7 +91,7 @@ const NewChat = () => {
       id: v4(),
       chatOwner: user.id,
       createdAt: new Date().toISOString(),
-      indredients: ingredients.join(", "),
+      ingredients: ingredients.join(", "),
       response: response,
       responseType: responseType,
     }
@@ -115,9 +118,9 @@ const NewChat = () => {
   }
 
   return (
-    <div className="max-w-[800px] px-4 py-6 mx-auto flex flex-col gap-4">
+    <div className="max-w-[800px] px-2 sm:px-4 py-6 mx-auto flex flex-col gap-4">
       <div>
-        <Tabs defaultValue="Normal" className="w-[400px]">
+        <Tabs defaultValue="Normal" className="">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger onClick={() => setPrecision("Normal")} value="Normal">
               Normal
@@ -166,11 +169,13 @@ const NewChat = () => {
             variant={"destructive"}
             onClick={resetChat}
           >
-            Delete
+            Clear
           </Button>
         </div>
       </div>
-      <div className="p-4 rounded-md border">{response}</div>
+      {response.length !== 0 && (
+        <div className="p-4 rounded-md border">{response}</div>
+      )}
     </div>
   )
 }

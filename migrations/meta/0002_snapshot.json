@@ -1,0 +1,63 @@
+{
+  "id": "54e2fd84-862c-4e9b-b82e-cf8f4d0e8f98",
+  "prevId": "7c89f187-f8a5-445a-bb71-3dee0b4e1113",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "chats": {
+      "name": "chats",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "chat_owner": {
+          "name": "chat_owner",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "response_type": {
+          "name": "response_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ingredients": {
+          "name": "ingredients",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "response": {
+          "name": "response",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

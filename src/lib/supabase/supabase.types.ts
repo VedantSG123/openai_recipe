@@ -17,7 +17,7 @@ export interface Database {
           chat_owner: string
           created_at: string
           id: string
-          indredients: string | null
+          ingredients: string | null
           response: string | null
           response_type: string | null
         }
@@ -25,7 +25,7 @@ export interface Database {
           chat_owner: string
           created_at?: string
           id?: string
-          indredients?: string | null
+          ingredients?: string | null
           response?: string | null
           response_type?: string | null
         }
@@ -33,7 +33,7 @@ export interface Database {
           chat_owner?: string
           created_at?: string
           id?: string
-          indredients?: string | null
+          ingredients?: string | null
           response?: string | null
           response_type?: string | null
         }
