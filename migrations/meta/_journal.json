@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1705179476271,
+      "tag": "0000_dusty_layla_miller",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1705210467700,
+      "tag": "0001_familiar_venus",
+      "breakpoints": true
+    }
+  ]
+}
