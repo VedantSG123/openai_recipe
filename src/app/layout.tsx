@@ -24,12 +24,10 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <SupabaseUserProvider>
-            <AppStateProvider>
-              {children}
-              <Toaster />
-            </AppStateProvider>
-          </SupabaseUserProvider>
+          <AppStateProvider>
+            {children}
+            <Toaster />
+          </AppStateProvider>
         </ThemeProvider>
       </body>
     </html>
