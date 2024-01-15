@@ -24,9 +24,9 @@ const Sidebar = async () => {
         <div className="max-h-500px relative">
           <ChatList allChats={allChats.data || []} />
         </div>
-        <div className="w-full relative border rounded-md py-4 px-2 mt-4 sm:mt-0">
-          <div className="oveflow-hidden">{user.email}</div>
-          <div className="flex gap-2 absolute top-0 right-0 p-2 justify-end w-1/2 bg-gradient-to-l from-background to-transparent">
+        <div className="w-full relative border rounded-md h-16 px-2 mt-4 sm:mt-0">
+          <div className="oveflow-hidden whitespace-nowrap absolute top-1/2 left-2 -translate-y-1/2">{user.email}</div>
+          <div className="flex gap-2 absolute top-1/2 -translate-y-1/2 right-0 p-2 justify-end w-1/2 bg-gradient-to-l from-background to-transparent">
             <ToggleTheme />
             <Logout />
           </div>
