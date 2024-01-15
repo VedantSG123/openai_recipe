@@ -55,38 +55,44 @@ const ExistingChat: React.FC<ExistingChatProps> = ({ chatId }) => {
   const callApi = async () => {
     if (ingredients.length === 0) return
     setLoading(true)
-    const ingredientListFormat = ingredients.map(
-      (item, index) => `${1 + index}. ${item}`
-    )
+    setResponse("")
 
-    const ingredientListString = ingredientListFormat.join("\n")
-    try {
-      const response = await fetch("/api/recipes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt: ingredientListString,
-          precision: responseType,
-        }),
+    const ingredientListString = ingredients.join(", ")
+
+    await fetch("/api/recipes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt: ingredientListString,
+        precision: responseType,
+      }),
+    })
+      .then(async (response: any) => {
+        const reader = response.body?.getReader()
+
+        while (true) {
+          const { done, value } = await reader?.read()
+          if (done) {
+            break
+          }
+
+          var current = new TextDecoder().decode(value)
+          setResponse((prev) => prev + current)
+        }
       })
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`)
-      }
-
-      const responseData = await response.json()
-      setResponse(responseData.text)
-    } catch (err) {
-      console.error(err)
-      toast({
-        title: "Error",
-        variant: "destructive",
+      .catch((err) => {
+        console.log(err)
+        toast({
+          title: "Error",
+          variant: "destructive",
+          description: "Failed to get response",
+        })
       })
-    } finally {
-      setLoading(false)
-    }
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const updateChatData = async () => {

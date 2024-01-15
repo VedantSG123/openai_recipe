@@ -5,6 +5,7 @@ import {
   NormalAssistantInstructions,
 } from "@/lib/prompts/prompts"
 import type { NextApiRequest, NextApiResponse } from "next"
+import { OpenAIStream, StreamingTextResponse } from "ai"
 import OpenAI from "openai"
 
 const openai = new OpenAI({
@@ -28,15 +29,16 @@ export async function POST(req: Request, res: NextApiResponse) {
       ? PreciseAssistantInstructions
       : NormalAssistantInstructions
 
-  const chatCompletion = await openai.chat.completions.create({
+  const openAIResponse = await openai.chat.completions.create({
     messages: [
       { role: "system", content: systemInstructions },
       { role: "assistant", content: assistantInstructions },
       { role: "user", content: prompt },
     ],
     model: "gpt-3.5-turbo",
+    stream: true,
   })
 
-  const response = chatCompletion.choices[0].message.content
-  return new Response(JSON.stringify({ text: response }), { status: 200 })
+  const stream = OpenAIStream(openAIResponse)
+  return new StreamingTextResponse(stream)
 }

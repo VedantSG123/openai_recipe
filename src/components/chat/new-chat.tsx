@@ -49,39 +49,45 @@ const NewChat = () => {
     if (ingredients.length === 0) return
     setEditing(false)
     setLoading(true)
-    // const ingredientListFormat = ingredients.map(
-    //   (item, index) => `${1 + index}. ${item}`
-    // )
+    setResponse("")
 
     const ingredientListString = ingredients.join(", ")
-    try {
-      const response = await fetch("/api/recipes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt: ingredientListString,
-          precision: responseType,
-        }),
-      })
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`)
-      }
+    await fetch("/api/recipes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt: ingredientListString,
+        precision: responseType,
+      }),
+    })
+      .then(async (response: any) => {
+        const reader = response.body?.getReader()
 
-      const responseData = await response.json()
-      setResponse(responseData.text)
-    } catch (err) {
-      console.error(err)
-      toast({
-        title: "Error",
-        variant: "destructive",
+        while (true) {
+          const { done, value } = await reader?.read()
+          if (done) {
+            break
+          }
+
+          var current = new TextDecoder().decode(value)
+          setResponse((prev) => prev + current)
+        }
       })
-    } finally {
-      setLoading(false)
-      setEditing(true)
-    }
+      .catch((err) => {
+        console.log(err)
+        toast({
+          title: "Error",
+          variant: "destructive",
+          description: "Failed to get response",
+        })
+      })
+      .finally(() => {
+        setLoading(false)
+        setEditing(true)
+      })
   }
 
   const saveNewChat = async () => {
