@@ -98,6 +98,7 @@ const SignupPage = () => {
               <FormControl>
                 <Input type="email" placeholder="Email" {...field}></Input>
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -114,6 +115,7 @@ const SignupPage = () => {
                   {...field}
                 ></Input>
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -130,6 +132,7 @@ const SignupPage = () => {
                   {...field}
                 ></Input>
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

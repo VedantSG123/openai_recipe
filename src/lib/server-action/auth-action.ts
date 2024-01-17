@@ -3,6 +3,7 @@ import { FormSchema } from "../types"
 import { z } from "zod"
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
+import { AuthResponse } from "@supabase/supabase-js"
 export const loginGoogleUser = async () => {
   const supabase = createRouteHandlerClient({ cookies })
   const response = await supabase.auth.signInWithOAuth({
@@ -29,11 +30,8 @@ export async function actionSignUpUser({
   password,
 }: z.infer<typeof FormSchema>) {
   const supabase = createRouteHandlerClient({ cookies })
-  const { data } = await supabase.from("profile").select("*").eq("email", email)
 
-  if (data?.length) return { error: { message: "User already exists", data } }
-
-  const response = await supabase.auth.signUp({
+  const response: AuthResponse = await supabase.auth.signUp({
     email,
     password,
     options: {
