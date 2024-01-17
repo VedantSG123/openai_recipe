@@ -11,9 +11,11 @@ import { useSupabaseUser } from "@/lib/providers/user-provider"
 import { saveChat } from "@/lib/supabase/queries"
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { useAppState } from "@/lib/providers/app-state-provider"
+import { useRouter } from "next/navigation"
 
 const NewChat = () => {
   const { toast } = useToast()
+  const router = useRouter()
   const { user } = useSupabaseUser()
   const { dispatch } = useAppState()
   const [ingredients, setIngredients] = useState<string[] | []>([])
@@ -119,6 +121,8 @@ const NewChat = () => {
         title: "Success",
         description: "Chat saved",
       })
+      //navigate to the saved chat
+      router.push(`dashboard/${newChat.id}`)
     }
     setLoading(false)
   }
